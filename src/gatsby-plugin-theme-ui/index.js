@@ -3,11 +3,11 @@ export default {
     text: "#333333",
     background: "#ffffff",
     primary: "#FF69B4",
-    muted: "#DEDEDE",
+    muted: "#ffd5ea",
     highlight: "#00C4FF",
-    gray: "#999999",
+    gray: "#F7F7F7",
     accent: "#F2C40E",
-    darken: "#F7F7F7",
+    darken: "#989898",
     error: "#FF010E",
     success: "#03B255",
   },
@@ -141,11 +141,8 @@ export default {
     li: {},
     blockquote: {},
     hr: {
-      border: 0,
-      borderStyle: 0,
-      color: "muted",
-      marginTop: 3,
-      marginBottom: 3,
+      color: "gray",
+      my: 4,
     },
     em: {},
     table: {},
@@ -203,7 +200,7 @@ export default {
         outlineColor: "primary",
       },
       ":hover": {
-        backgroundColor: "darken",
+        backgroundColor: "gray",
       },
     },
     text: {
@@ -214,6 +211,9 @@ export default {
       color: "text",
       p: 0,
       transition: ".2s linear color",
+      ":focus": {
+        outlineColor: "primary",
+      },
       ":hover": {
         color: "primary",
       },
@@ -245,7 +245,7 @@ export default {
       },
       ":hover": {
         color: "highlight",
-        backgroundColor: "darken",
+        backgroundColor: "gray",
       },
     },
   },

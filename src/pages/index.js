@@ -86,11 +86,11 @@ const IndexPage = () => {
                   <Text
                     as="small"
                     variant="styles.small"
-                    sx={{ color: "highlight" }}
+                    sx={{ color: "highlight", mb: 2 }}
                   >
                     {format(new Date(date), "d MMMM u")}
                   </Text>
-                  <Divider />
+
                   <Text
                     sx={{
                       mb: 4,

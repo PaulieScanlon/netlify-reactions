@@ -12,7 +12,7 @@ const Header = () => {
         sx={{
           alignItems: "center",
           backgroundColor: "background",
-          borderBottomColor: "muted",
+          borderBottomColor: "gray",
           borderBottomStyle: "solid",
           borderBottomWidth: 1,
           height: "header",

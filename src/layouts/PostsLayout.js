@@ -5,7 +5,7 @@ import { graphql } from "gatsby";
 import { format } from "date-fns";
 import { Link as GatsbyLink } from "gatsby";
 import { Heading, Text, Flex, Box, Divider, Button, Link } from "theme-ui";
-import { SvgBubbleSlider } from "react-svg-bubble-slider";
+import { SvgBubbleSlider, SvgIcon } from "react-svg-bubble-slider";
 
 import Seo from "../components/Seo";
 import { useConfig } from "../utils/useConfig";
@@ -32,7 +32,11 @@ const PostsLayout = ({
   const iconsToUse = ["angry", "sad", "neutral", "smile", "happy", "cool"];
 
   return (
-    <Box>
+    <Box
+      sx={{
+        mb: 4,
+      }}
+    >
       <Seo
         type="article"
         title={name}
@@ -60,12 +64,12 @@ const PostsLayout = ({
         <MDXRenderer>{body}</MDXRenderer>
       </MDXProvider>
       <Divider />
-      <Box sx={{ height: 100 }} />
+      <Box sx={{ height: 110 }} />
       <Box
         sx={{
           ".speech-bubble-text": {
             fill: "primary",
-            fontSize: "24px",
+            fontSize: 3,
             textTransform: "capitalize",
           },
           ".svg-bubble-action": {
@@ -85,7 +89,38 @@ const PostsLayout = ({
           )}
         </SvgBubbleSlider>
       </Box>
-      <Box sx={{ height: 30 }} />
+      <Divider />
+      <Flex
+        sx={{
+          justifyContent: "space-around",
+          textAlign: "center",
+          m: "auto",
+          maxWidth: 280,
+        }}
+      >
+        {iconsToUse.map((icon, index) => (
+          <Flex
+            key={index}
+            sx={{
+              flexDirection: "column",
+              justifyContent: "center",
+              ".svg-icon": {
+                color: "muted",
+              },
+            }}
+          >
+            <SvgIcon name={icon} />
+            <Text
+              as="small"
+              variant="small"
+              sx={{ color: "darken", mt: 2, textAlign: "center" }}
+            >
+              0
+            </Text>
+          </Flex>
+        ))}
+      </Flex>
+      <Box sx={{ height: 20 }} />
       <Flex
         sx={{
           justifyContent: "space-between",
@@ -133,8 +168,6 @@ const PostsLayout = ({
           )}
         </Box>
       </Flex>
-      <Divider />
-      <Divider />
     </Box>
   );
 };
