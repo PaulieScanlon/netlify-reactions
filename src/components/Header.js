@@ -37,7 +37,7 @@ const Header = () => {
             }}
           >
             <NavLink as={GatsbyLink} to="/">
-              <SvgIcon name="wondering" />
+              <SvgIcon name="tongue" />
             </NavLink>
           </Flex>
         </Container>

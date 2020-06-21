@@ -3,7 +3,7 @@ module.exports = {
     name: "Demo Blog",
     description: "A demo Gatsby blog using React Svg Bubble Slider",
     keywords: ["React", "Gatsby", "GSAP"],
-    siteUrl: "https://netlify-reactions.netlify.com",
+    siteUrl: "https://netlify-reactions.netlify.app",
     siteImage: "images/netlify-reactions-open-graph-image.jpg",
     profileImage: ``,
     lang: `en`,
