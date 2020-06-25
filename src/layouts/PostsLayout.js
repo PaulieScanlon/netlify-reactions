@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import { graphql, Link as GatsbyLink } from 'gatsby';
@@ -16,7 +16,7 @@ import {
 } from 'theme-ui';
 import { SvgBubbleSlider, SvgIcon } from 'react-svg-bubble-slider';
 
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
 import Seo from '../components/Seo';
@@ -61,11 +61,18 @@ const PostsLayout = ({
   });
 
   const iconsToUse = ['angry', 'sad', 'neutral', 'smile', 'happy', 'cool'];
-  let response = (data && data.getReactionsBySlug[0]) || null;
+  const [reactions, setReactions] = useState();
+
+  useEffect(() => {
+    if (data && data.getReactionsBySlug.length) {
+      setReactions(data.getReactionsBySlug[0].reactions);
+    }
+  }, [data]);
 
   // console.log('slug: ', slug);
   // console.log('loading: ', loading);
-  // console.log('response: ', response);
+  // // console.log('response: ', response);
+  // console.log('reactions: ', reactions);
   // console.log('error: ', JSON.stringify(error, null, 2));
 
   return (
@@ -148,9 +155,9 @@ const PostsLayout = ({
       >
         {loading && <Spinner />}
         {error && <Text>{`${error}`}</Text>}
-        {!loading && !error && response && (
+        {!loading && !error && reactions && (
           <Fragment>
-            {response.reactions.map((icon, index) => {
+            {reactions.map((icon, index) => {
               const { name, count } = icon;
               return (
                 <Flex
