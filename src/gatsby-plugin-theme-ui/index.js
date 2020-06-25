@@ -5,7 +5,7 @@ export default {
     primary: '#FF69B4',
     muted: '#ffd5ea',
     highlight: '#00C4FF',
-    gray: '#F7F7F7',
+    gray: '#E2E2E2',
     accent: '#F2C40E',
     darken: '#989898',
     error: '#FF010E',

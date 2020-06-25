@@ -61,11 +61,26 @@ const PostsLayout = ({
   });
 
   const iconsToUse = ['angry', 'sad', 'neutral', 'smile', 'happy', 'cool'];
-  const [reactions, setReactions] = useState();
+  const [reactions, setReactions] = useState([]);
+
+  const handleSubmit = (reaction) => {
+    setReactions(
+      reactions.map((data) => {
+        return {
+          name: data.name,
+          count: data.name === reaction ? (data.count += 1) : data.count
+        };
+      })
+    );
+  };
 
   useEffect(() => {
     if (data && data.getReactionsBySlug.length) {
-      setReactions(data.getReactionsBySlug[0].reactions);
+      setReactions(
+        data.getReactionsBySlug[0].reactions.map((data) => {
+          return { name: data.name, count: data.count };
+        })
+      );
     }
   }, [data]);
 
@@ -134,7 +149,7 @@ const PostsLayout = ({
             {({ reaction }) => (
               <Flex sx={{ justifyContent: 'center' }}>
                 {reaction && (
-                  <Button onClick={() => console.log(reaction)}>
+                  <Button onClick={() => handleSubmit(reaction)}>
                     {reaction}
                   </Button>
                 )}
