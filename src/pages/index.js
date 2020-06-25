@@ -1,16 +1,16 @@
-import React, { Fragment } from "react";
-import { format } from "date-fns";
-import { useStaticQuery, graphql, Link } from "gatsby";
-import { Heading, Divider, Card, Flex, Box, Text, Button } from "theme-ui";
+import React, { Fragment } from 'react';
+import { format } from 'date-fns';
+import { useStaticQuery, graphql, Link } from 'gatsby';
+import { Heading, Divider, Card, Flex, Box, Text, Button } from 'theme-ui';
 
-import Seo from "../components/Seo";
-import { useConfig } from "../utils/useConfig";
+import Seo from '../components/Seo';
+import { useConfig } from '../utils/useConfig';
 
 const IndexPage = () => {
   const {
     site: {
-      siteMetadata: { name, description, keywords, siteUrl, siteImage, lang },
-    },
+      siteMetadata: { name, description, keywords, siteUrl, siteImage, lang }
+    }
   } = useConfig();
 
   const posts = useStaticQuery(graphql`
@@ -34,7 +34,7 @@ const IndexPage = () => {
   `);
 
   return (
-    <Fragment>
+    <>
       <Seo
         type="website"
         title={name}
@@ -49,12 +49,12 @@ const IndexPage = () => {
         Demo
       </Heading>
       <Divider />
-      <Flex sx={{ flexWrap: "wrap", mx: (theme) => `-${theme.space[2]}px` }}>
+      <Flex sx={{ flexWrap: 'wrap', mx: (theme) => `-${theme.space[2]}px` }}>
         {posts.allMdx.edges.map((item, index) => {
           const {
             frontmatter: { title, date },
             fields: { slug },
-            excerpt,
+            excerpt
           } = item.node;
           return (
             <Box
@@ -63,21 +63,21 @@ const IndexPage = () => {
                 px: 2,
                 mb: 3,
                 a: {
-                  textDecoration: "none",
-                  ":focus": {
-                    outlineColor: "accent",
-                  },
-                },
+                  textDecoration: 'none',
+                  ':focus': {
+                    outlineColor: 'accent'
+                  }
+                }
               }}
             >
               <Link to={slug}>
                 <Card
                   sx={{
-                    ":hover": {
+                    ':hover': {
                       button: {
-                        color: "primary",
-                      },
-                    },
+                        color: 'primary'
+                      }
+                    }
                   }}
                 >
                   <Heading as="h4" variant="styles.h4">
@@ -86,14 +86,14 @@ const IndexPage = () => {
                   <Text
                     as="small"
                     variant="styles.small"
-                    sx={{ color: "highlight", mb: 2 }}
+                    sx={{ color: 'highlight', mb: 2 }}
                   >
-                    {format(new Date(date), "d MMMM u")}
+                    {format(new Date(date), 'd MMMM u')}
                   </Text>
 
                   <Text
                     sx={{
-                      mb: 4,
+                      mb: 4
                     }}
                   >
                     {excerpt}
@@ -101,7 +101,7 @@ const IndexPage = () => {
                   <Button
                     variant="text"
                     tabIndex={-1}
-                    sx={{ alignSelf: "flex-end" }}
+                    sx={{ alignSelf: 'flex-end' }}
                   >
                     Read post
                   </Button>
@@ -111,7 +111,7 @@ const IndexPage = () => {
           );
         })}
       </Flex>
-    </Fragment>
+    </>
   );
 };
 

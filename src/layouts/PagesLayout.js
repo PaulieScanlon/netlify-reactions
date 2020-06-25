@@ -1,7 +1,7 @@
-import React from "react";
-import { Box, Container } from "theme-ui";
+import React from 'react';
+import { Box, Container } from 'theme-ui';
 
-import Header from "../components/Header";
+import Header from '../components/Header';
 
 const PagesLayout = ({ children }) => (
   <Box as="main">

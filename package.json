@@ -4,11 +4,14 @@
   "description": "A demo Gatsby blog using React Svg Bubble Slider",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint . --ext .js --fix",
     "develop": "gatsby develop",
     "build": "gatsby build",
     "clean": "gatsby clean",
     "serve": "gatsby serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run develop",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "netlify-lambda install"
   },
   "repository": {
     "type": "git",
@@ -21,19 +24,37 @@
   },
   "homepage": "https://github.com/PaulieScanlon/netlify-reactions#readme",
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@mdx-js/react": "^1.6.6",
+    "apollo-boost": "^0.4.9",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
     "date-fns": "^2.14.0",
+    "faunadb": "^2.14.2",
     "gatsby": "^2.23.7",
     "gatsby-plugin-layout": "^1.3.4",
     "gatsby-plugin-mdx": "^1.2.16",
     "gatsby-plugin-react-helmet": "^3.3.4",
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-source-filesystem": "^2.3.12",
+    "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-svg-bubble-slider": "^0.0.36",
-    "theme-ui": "^0.3.1"
+    "theme-ui": "^0.3.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "make-runnable": "^1.3.6",
+    "netlify-lambda": "^1.6.3"
   }
 }

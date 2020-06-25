@@ -1,14 +1,39 @@
-import React from "react";
-import { MDXRenderer } from "gatsby-plugin-mdx";
-import { MDXProvider } from "@mdx-js/react";
-import { graphql } from "gatsby";
-import { format } from "date-fns";
-import { Link as GatsbyLink } from "gatsby";
-import { Heading, Text, Flex, Box, Divider, Button, Link } from "theme-ui";
-import { SvgBubbleSlider, SvgIcon } from "react-svg-bubble-slider";
+import React from 'react';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { MDXProvider } from '@mdx-js/react';
+import { graphql, Link as GatsbyLink } from 'gatsby';
+import { format } from 'date-fns';
 
-import Seo from "../components/Seo";
-import { useConfig } from "../utils/useConfig";
+import {
+  Heading,
+  Text,
+  Flex,
+  Box,
+  Divider,
+  Button,
+  Link,
+  Spinner
+} from 'theme-ui';
+import { SvgBubbleSlider, SvgIcon } from 'react-svg-bubble-slider';
+
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+
+import Seo from '../components/Seo';
+import { useConfig } from '../utils/useConfig';
+
+const GET_REACTIONS_BY_SLUG = gql`
+  query($slug: String!) {
+    getReactionsBySlug(slug: $slug) {
+      ref
+      slug
+      reactions {
+        name
+        count
+      }
+    }
+  }
+`;
 
 const PostsLayout = ({
   data: {
@@ -16,25 +41,36 @@ const PostsLayout = ({
       body,
       excerpt,
       frontmatter: { title, date },
-      fields: { slug },
-    },
+      fields: { slug }
+    }
   },
-  pageContext,
+  pageContext
 }) => {
   const { prev, next } = pageContext;
 
   const {
     site: {
-      siteMetadata: { name, keywords, siteUrl, siteImage, lang },
-    },
+      siteMetadata: { name, keywords, siteUrl, siteImage, lang }
+    }
   } = useConfig();
 
-  const iconsToUse = ["angry", "sad", "neutral", "smile", "happy", "cool"];
+  const { loading, data, error } = useQuery(GET_REACTIONS_BY_SLUG, {
+    variables: {
+      slug
+    }
+  });
+
+  console.log('slug: ', slug);
+  console.log('loading: ', loading);
+  console.log('data: ', data);
+  console.log('error: ', JSON.stringify(error, null, 2));
+
+  const iconsToUse = ['angry', 'sad', 'neutral', 'smile', 'happy', 'cool'];
 
   return (
     <Box
       sx={{
-        mb: 4,
+        mb: 4
       }}
     >
       <Seo
@@ -50,14 +86,14 @@ const PostsLayout = ({
       />
       <Flex
         sx={{
-          flexDirection: "column",
+          flexDirection: 'column'
         }}
       >
         <Heading as="h1" variant="styles.h1">
           {title}
         </Heading>
-        <Text as="small" variant="styles.small" sx={{ color: "highlight" }}>
-          {format(new Date(date), "d MMMM u")}
+        <Text as="small" variant="styles.small" sx={{ color: 'highlight' }}>
+          {format(new Date(date), 'd MMMM u')}
         </Text>
       </Flex>
       <MDXProvider>
@@ -65,66 +101,85 @@ const PostsLayout = ({
       </MDXProvider>
       <Divider />
       <Box sx={{ height: 110 }} />
-      <Box
+      <Flex
         sx={{
-          ".speech-bubble-text": {
-            fill: "primary",
-            fontSize: 3,
-            textTransform: "capitalize",
-          },
-          ".svg-bubble-action": {
-            minHeight: 44,
-          },
+          alignItems: 'center',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          textAlign: 'center',
+          m: 'auto'
         }}
       >
-        <SvgBubbleSlider icons={iconsToUse}>
-          {({ reaction }) => (
-            <Flex sx={{ justifyContent: "center" }}>
-              {reaction && (
-                <Button onClick={() => console.log(reaction)}>
-                  {reaction}
-                </Button>
+        {loading && <Spinner />}
+        {error && <Text>{`${error}`}</Text>}
+        {data && data.getReactionsBySlug && (
+          <Box
+            sx={{
+              '.speech-bubble-text': {
+                fill: 'primary',
+                fontSize: 3,
+                textTransform: 'capitalize'
+              },
+              '.svg-bubble-action': {
+                minHeight: 44
+              }
+            }}
+          >
+            <SvgBubbleSlider icons={iconsToUse}>
+              {({ reaction }) => (
+                <Flex sx={{ justifyContent: 'center' }}>
+                  {reaction && (
+                    <Button onClick={() => console.log(reaction)}>
+                      {reaction}
+                    </Button>
+                  )}
+                </Flex>
               )}
-            </Flex>
-          )}
-        </SvgBubbleSlider>
-      </Box>
+            </SvgBubbleSlider>
+          </Box>
+        )}
+      </Flex>
       <Divider />
       <Flex
         sx={{
-          justifyContent: "space-around",
-          textAlign: "center",
-          m: "auto",
-          maxWidth: 280,
+          justifyContent: 'space-around',
+          textAlign: 'center',
+          m: 'auto',
+          maxWidth: 280
         }}
       >
-        {iconsToUse.map((icon, index) => (
-          <Flex
-            key={index}
-            sx={{
-              flexDirection: "column",
-              justifyContent: "center",
-              ".svg-icon": {
-                color: "muted",
-              },
-            }}
-          >
-            <SvgIcon name={icon} />
-            <Text
-              as="small"
-              variant="small"
-              sx={{ color: "darken", mt: 2, textAlign: "center" }}
-            >
-              0
-            </Text>
-          </Flex>
-        ))}
+        {data &&
+          data.getReactionsBySlug[0] &&
+          data.getReactionsBySlug[0].reactions.map((icon, index) => {
+            const { name, count } = icon;
+            return (
+              <Flex
+                key={index}
+                sx={{
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  '.svg-icon': {
+                    color: 'muted'
+                  }
+                }}
+              >
+                <SvgIcon name={name} />
+                <Text
+                  as="small"
+                  variant="small"
+                  sx={{ color: 'darken', mt: 2, textAlign: 'center' }}
+                >
+                  {count}
+                </Text>
+              </Flex>
+            );
+          })}
       </Flex>
       <Box sx={{ height: 20 }} />
       <Flex
         sx={{
-          justifyContent: "space-between",
-          mx: (theme) => `-${theme.space[2]}px`,
+          justifyContent: 'space-between',
+          mx: (theme) => `-${theme.space[2]}px`
         }}
       >
         <Box>
@@ -134,10 +189,10 @@ const PostsLayout = ({
                 as={GatsbyLink}
                 to={prev.fields.slug}
                 sx={{
-                  textDecoration: "none",
-                  ":focus": {
-                    outlineColor: "primary",
-                  },
+                  textDecoration: 'none',
+                  ':focus': {
+                    outlineColor: 'primary'
+                  }
                 }}
               >
                 <Button tabIndex={-1} variant="ghost">
@@ -154,10 +209,10 @@ const PostsLayout = ({
                 as={GatsbyLink}
                 to={next.fields.slug}
                 sx={{
-                  textDecoration: "none",
-                  ":focus": {
-                    outlineColor: "primary",
-                  },
+                  textDecoration: 'none',
+                  ':focus': {
+                    outlineColor: 'primary'
+                  }
                 }}
               >
                 <Button tabIndex={-1} variant="ghost">

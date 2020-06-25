@@ -1,54 +1,52 @@
-import React, { Fragment } from "react";
-import { Container, Flex, Box, NavLink } from "theme-ui";
-import { Link as GatsbyLink } from "gatsby";
+import React, { Fragment } from 'react';
+import { Container, Flex, Box, NavLink } from 'theme-ui';
+import { Link as GatsbyLink } from 'gatsby';
 
-import { SvgIcon } from "react-svg-bubble-slider";
+import { SvgIcon } from 'react-svg-bubble-slider';
 
-const Header = () => {
-  return (
-    <Fragment>
-      <Flex
-        as="header"
+const Header = () => (
+  <>
+    <Flex
+      as="header"
+      sx={{
+        alignItems: 'center',
+        backgroundColor: 'background',
+        borderBottomColor: 'gray',
+        borderBottomStyle: 'solid',
+        borderBottomWidth: 1,
+        height: 'header',
+        left: 0,
+        position: 'fixed',
+        right: 0,
+        zIndex: 1
+      }}
+    >
+      <Container
         sx={{
-          alignItems: "center",
-          backgroundColor: "background",
-          borderBottomColor: "gray",
-          borderBottomStyle: "solid",
-          borderBottomWidth: 1,
-          height: "header",
-          left: 0,
-          position: "fixed",
-          right: 0,
-          zIndex: 1,
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'space-between'
         }}
       >
-        <Container
+        <Flex
+          as="nav"
           sx={{
-            alignItems: "center",
-            display: "flex",
-            justifyContent: "space-between",
+            alignItems: 'center',
+            mx: (theme) => `-${theme.space[2]}px`
           }}
         >
-          <Flex
-            as="nav"
-            sx={{
-              alignItems: "center",
-              mx: (theme) => `-${theme.space[2]}px`,
-            }}
-          >
-            <NavLink as={GatsbyLink} to="/">
-              <SvgIcon name="tongue" />
-            </NavLink>
-          </Flex>
-        </Container>
-      </Flex>
-      <Box
-        sx={{
-          height: (theme) => `${theme.sizes.header * 1.5}px`,
-        }}
-      />
-    </Fragment>
-  );
-};
+          <NavLink as={GatsbyLink} to="/">
+            <SvgIcon name="tongue" />
+          </NavLink>
+        </Flex>
+      </Container>
+    </Flex>
+    <Box
+      sx={{
+        height: (theme) => `${theme.sizes.header * 1.5}px`
+      }}
+    />
+  </>
+);
 
 export default Header;

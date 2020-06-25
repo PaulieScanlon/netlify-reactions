@@ -1,34 +1,34 @@
 module.exports = {
   siteMetadata: {
-    name: "Demo Blog",
-    description: "A demo Gatsby blog using React Svg Bubble Slider",
-    keywords: ["React", "Gatsby", "GSAP"],
-    siteUrl: "https://netlify-reactions.netlify.app",
-    siteImage: "images/netlify-reactions-open-graph-image.jpg",
-    profileImage: ``,
-    lang: `en`,
+    name: 'Demo Blog',
+    description: 'A demo Gatsby blog using React Svg Bubble Slider',
+    keywords: ['React', 'Gatsby', 'GSAP'],
+    siteUrl: 'https://netlify-reactions.netlify.app',
+    siteImage: 'images/netlify-reactions-open-graph-image.jpg',
+    profileImage: '',
+    lang: 'en',
   },
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: `posts`,
+        name: 'posts',
         path: `${__dirname}/src/posts/`,
       },
     },
     {
-      resolve: `gatsby-plugin-layout`,
+      resolve: 'gatsby-plugin-layout',
       options: {
-        component: require.resolve(`./src/layouts/PagesLayout.js`),
+        component: require.resolve('./src/layouts/PagesLayout.js'),
       },
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: 'gatsby-plugin-mdx',
       options: {
-        extensions: [`.mdx`, `.md`],
+        extensions: ['.mdx', '.md'],
       },
     },
-    `gatsby-plugin-theme-ui`,
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-theme-ui',
+    'gatsby-plugin-react-helmet',
   ],
 };

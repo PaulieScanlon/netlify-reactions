@@ -1,7 +1,7 @@
-import { useStaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql } from 'gatsby';
 
-export const useConfig = () => {
-  return useStaticQuery(
+export const useConfig = () =>
+  useStaticQuery(
     graphql`
       query {
         site {
@@ -18,4 +18,3 @@ export const useConfig = () => {
       }
     `
   );
-};

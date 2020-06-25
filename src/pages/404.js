@@ -1,5 +1,5 @@
-import React from "react";
-import { Heading } from "theme-ui";
+import React from 'react';
+import { Heading } from 'theme-ui';
 
 const NotFoundPage = () => (
   <Heading as="h1" variant="styles.h1">
