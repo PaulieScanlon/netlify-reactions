@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import { graphql, Link as GatsbyLink } from 'gatsby';
@@ -60,12 +60,13 @@ const PostsLayout = ({
     }
   });
 
-  console.log('slug: ', slug);
-  console.log('loading: ', loading);
-  console.log('data: ', data);
-  console.log('error: ', JSON.stringify(error, null, 2));
-
   const iconsToUse = ['angry', 'sad', 'neutral', 'smile', 'happy', 'cool'];
+  let response = (data && data.getReactionsBySlug[0]) || null;
+
+  // console.log('slug: ', slug);
+  // console.log('loading: ', loading);
+  // console.log('response: ', response);
+  // console.log('error: ', JSON.stringify(error, null, 2));
 
   return (
     <Box
@@ -110,72 +111,75 @@ const PostsLayout = ({
           m: 'auto'
         }}
       >
-        {loading && <Spinner />}
-        {error && <Text>{`${error}`}</Text>}
-        {data && data.getReactionsBySlug && (
-          <Box
-            sx={{
-              '.speech-bubble-text': {
-                fill: 'primary',
-                fontSize: 3,
-                textTransform: 'capitalize'
-              },
-              '.svg-bubble-action': {
-                minHeight: 44
-              }
-            }}
-          >
-            <SvgBubbleSlider icons={iconsToUse}>
-              {({ reaction }) => (
-                <Flex sx={{ justifyContent: 'center' }}>
-                  {reaction && (
-                    <Button onClick={() => console.log(reaction)}>
-                      {reaction}
-                    </Button>
-                  )}
-                </Flex>
-              )}
-            </SvgBubbleSlider>
-          </Box>
-        )}
+        <Box
+          sx={{
+            '.speech-bubble-text': {
+              fill: 'primary',
+              fontSize: 3,
+              textTransform: 'capitalize'
+            },
+            '.svg-bubble-action': {
+              minHeight: 44
+            }
+          }}
+        >
+          <SvgBubbleSlider icons={iconsToUse}>
+            {({ reaction }) => (
+              <Flex sx={{ justifyContent: 'center' }}>
+                {reaction && (
+                  <Button onClick={() => console.log(reaction)}>
+                    {reaction}
+                  </Button>
+                )}
+              </Flex>
+            )}
+          </SvgBubbleSlider>
+          <Divider />
+        </Box>
       </Flex>
-      <Divider />
       <Flex
         sx={{
+          alignItems: 'center',
           justifyContent: 'space-around',
           textAlign: 'center',
           m: 'auto',
           maxWidth: 280
         }}
       >
-        {data &&
-          data.getReactionsBySlug[0] &&
-          data.getReactionsBySlug[0].reactions.map((icon, index) => {
-            const { name, count } = icon;
-            return (
-              <Flex
-                key={index}
-                sx={{
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  '.svg-icon': {
-                    color: 'muted'
-                  }
-                }}
-              >
-                <SvgIcon name={name} />
-                <Text
-                  as="small"
-                  variant="small"
-                  sx={{ color: 'darken', mt: 2, textAlign: 'center' }}
+        {loading && <Spinner />}
+        {error && <Text>{`${error}`}</Text>}
+        {!loading && !error && response && (
+          <Fragment>
+            {response.reactions.map((icon, index) => {
+              const { name, count } = icon;
+              return (
+                <Flex
+                  key={index}
+                  sx={{
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    '.svg-icon': {
+                      color: 'muted'
+                    },
+                    mx: 2
+                  }}
                 >
-                  {count}
-                </Text>
-              </Flex>
-            );
-          })}
+                  <SvgIcon name={name} />
+                  <Text
+                    as="small"
+                    variant="small"
+                    sx={{ color: 'darken', mt: 2, textAlign: 'center' }}
+                  >
+                    {count}
+                  </Text>
+                </Flex>
+              );
+            })}
+          </Fragment>
+        )}
       </Flex>
       <Box sx={{ height: 20 }} />
+
       <Flex
         sx={{
           justifyContent: 'space-between',
