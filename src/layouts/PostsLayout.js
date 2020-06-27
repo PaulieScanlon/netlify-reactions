@@ -16,7 +16,7 @@ import {
 } from 'theme-ui';
 import { SvgBubbleSlider, SvgIcon } from 'react-svg-bubble-slider';
 
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
 import Seo from '../components/Seo';
@@ -34,6 +34,33 @@ const GET_REACTIONS_BY_SLUG = gql`
     }
   }
 `;
+
+const UPDATE_REACTIONS_BY_REF = gql`
+  mutation($ref: String!, $reactions: [ReactionInput]!) {
+    updateReactionsByRef(ref: $ref, reactions: $reactions) {
+      ref
+      slug
+      reactions {
+        name
+        count
+      }
+    }
+  }
+`;
+
+const CREATE_REACTIONS_BY_SLUG = gql`
+  mutation($slug: String!, $reactions: [ReactionInput]!) {
+    createReactionsBySlug(slug: $slug, reactions: $reactions) {
+      slug
+      reactions {
+        name
+        count
+      }
+    }
+  }
+`;
+
+const ICONS_TO_USE = ['angry', 'sad', 'neutral', 'smile', 'happy', 'cool'];
 
 const PostsLayout = ({
   data: {
@@ -54,28 +81,70 @@ const PostsLayout = ({
     }
   } = useConfig();
 
+  const [reactions, setReactions] = useState([]);
+  const [ref, setRef] = useState('');
+  const [isLocalLoading, setIsLocalLoading] = useState(false);
+
   const { loading, data, error } = useQuery(GET_REACTIONS_BY_SLUG, {
     variables: {
       slug
     }
   });
 
-  const iconsToUse = ['angry', 'sad', 'neutral', 'smile', 'happy', 'cool'];
-  const [reactions, setReactions] = useState([]);
+  const [updateReactionsByRef] = useMutation(UPDATE_REACTIONS_BY_REF, {
+    onCompleted() {
+      setIsLocalLoading(false);
+    }
+  });
+
+  const [createReactionsBySlug] = useMutation(CREATE_REACTIONS_BY_SLUG, {
+    onCompleted() {
+      setIsLocalLoading(false);
+    }
+  });
 
   const handleSubmit = (reaction) => {
-    setReactions(
-      reactions.map((data) => {
+    setIsLocalLoading(true);
+
+    if (reactions.length > 0) {
+      updateReactionsByRef({
+        variables: {
+          ref,
+          reactions: reactions.map((data) => {
+            return {
+              name: data.name,
+              count: data.name === reaction ? (data.count += 1) : data.count
+            };
+          })
+        },
+        refetchQueries: [{ query: GET_REACTIONS_BY_SLUG, variables: { slug } }]
+      });
+    } else {
+      const DEFAULT_REACTIONS = ICONS_TO_USE.map((icon) => {
         return {
-          name: data.name,
-          count: data.name === reaction ? (data.count += 1) : data.count
+          name: icon,
+          count: 0
         };
-      })
-    );
+      });
+
+      createReactionsBySlug({
+        variables: {
+          slug,
+          reactions: DEFAULT_REACTIONS.map((data) => {
+            return {
+              name: data.name,
+              count: data.name === reaction ? (data.count += 1) : data.count
+            };
+          })
+        },
+        refetchQueries: [{ query: GET_REACTIONS_BY_SLUG, variables: { slug } }]
+      });
+    }
   };
 
   useEffect(() => {
     if (data && data.getReactionsBySlug.length) {
+      setRef(data.getReactionsBySlug[0].ref);
       setReactions(
         data.getReactionsBySlug[0].reactions.map((data) => {
           return { name: data.name, count: data.count };
@@ -86,8 +155,9 @@ const PostsLayout = ({
 
   // console.log('slug: ', slug);
   // console.log('loading: ', loading);
-  // // console.log('response: ', response);
+  // console.log('data: ', data);
   // console.log('reactions: ', reactions);
+  // console.log('ref: ', ref);
   // console.log('error: ', JSON.stringify(error, null, 2));
 
   return (
@@ -145,12 +215,25 @@ const PostsLayout = ({
             }
           }}
         >
-          <SvgBubbleSlider icons={iconsToUse}>
+          <SvgBubbleSlider icons={ICONS_TO_USE}>
             {({ reaction }) => (
               <Flex sx={{ justifyContent: 'center' }}>
                 {reaction && (
-                  <Button onClick={() => handleSubmit(reaction)}>
-                    {reaction}
+                  <Button
+                    onClick={() => handleSubmit(reaction)}
+                    disabled={isLocalLoading}
+                    sx={{
+                      minHeight: 40,
+                      minWidth: 100,
+                      textAlign: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {isLocalLoading ? (
+                      <Spinner sx={{ color: 'white', width: 20, height: 20 }} />
+                    ) : (
+                      reaction
+                    )}
                   </Button>
                 )}
               </Flex>
@@ -197,6 +280,11 @@ const PostsLayout = ({
                 </Flex>
               );
             })}
+            {reactions.length <= 0 && (
+              <Heading as="h6" variant="styles.h6">
+                Be the first to react 👆
+              </Heading>
+            )}
           </Fragment>
         )}
       </Flex>

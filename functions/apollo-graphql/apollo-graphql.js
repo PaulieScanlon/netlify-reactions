@@ -13,7 +13,19 @@ const typeDefs = gql`
     getReactionsBySlug(slug: String!): [ReactionsObject]
   }
 
-  type Reaction {
+  type Mutation {
+    updateReactionsByRef(
+      ref: String!
+      reactions: [ReactionInput]!
+    ): ReactionsObject
+
+    createReactionsBySlug(
+      slug: String!
+      reactions: [ReactionInput]!
+    ): ReactionsObject
+  }
+
+  type ReactionType {
     name: String
     count: Int
   }
@@ -21,13 +33,18 @@ const typeDefs = gql`
   type ReactionsObject {
     ref: String
     slug: String
-    reactions: [Reaction]
+    reactions: [ReactionType]
+  }
+
+  input ReactionInput {
+    name: String
+    count: Int
   }
 `;
 
 const resolvers = {
   Query: {
-    // // GET REACTIONS BY SLUG
+    // GET REACTIONS BY SLUG
     getReactionsBySlug: async (root, args, context) => {
       const results = await client.query(
         q.Map(
@@ -44,6 +61,42 @@ const resolvers = {
           reactions: data.reactions
         };
       });
+    }
+  },
+  Mutation: {
+    // CREATE REACTIONS BY SLUG
+    createReactionsBySlug: async (root, args, context) => {
+      const results = await client.query(
+        q.Create(q.Collection(COLLECTION_NAME), {
+          data: {
+            slug: args.slug,
+            reactions: args.reactions
+          }
+        })
+      );
+      console.log(JSON.stringify(results, null, 2));
+    },
+
+    // UPDATE REACTIONS BY REF
+    updateReactionsByRef: async (root, args, context) => {
+      const results = await client.query(
+        q.Update(q.Ref(q.Collection(COLLECTION_NAME), args.ref), {
+          data: {
+            reactions: args.reactions
+          }
+        })
+      );
+
+      const {
+        ref,
+        data: { slug, reactions }
+      } = results;
+
+      return {
+        ref: ref.id,
+        slug: slug,
+        reactions: reactions
+      };
     }
   }
 };
