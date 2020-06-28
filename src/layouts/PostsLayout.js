@@ -204,10 +204,25 @@ const PostsLayout = ({
       >
         <Box
           sx={{
+            '.speech-bubble-stroke': {
+              stroke: 'primary'
+            },
+            '.speech-bubble-fill': {
+              fill: 'background'
+            },
             '.speech-bubble-text': {
               fill: 'primary',
               fontSize: 3,
               textTransform: 'capitalize'
+            },
+            '.speech-bubble-pop-line': {
+              stroke: 'primary'
+            },
+            '.reaction-icon': {
+              fill: 'background'
+            },
+            '.reaction-dot': {
+              fill: 'primary'
             },
             '.svg-bubble-action': {
               alignItems: 'center',
@@ -219,7 +234,34 @@ const PostsLayout = ({
         >
           <SvgBubbleSlider icons={ICONS_TO_USE}>
             {({ reaction }) => (
-              <Flex sx={{ justifyContent: 'center' }}>
+              <Flex
+                sx={{
+                  justifyContent: 'center',
+                  '.speech-bubble-stroke': {
+                    stroke: 'muted'
+                  },
+                  '.speech-bubble-fill': {
+                    fill: 'background'
+                  },
+                  '.speech-bubble-text': {
+                    fill: 'muted',
+                    fontSize: '24px',
+                    textTransform: 'capitalize'
+                  },
+                  '.speech-bubble-pop-line': {
+                    stroke: 'muted'
+                  },
+                  '.reaction-icon': {
+                    fill: 'background'
+                  },
+                  '.reaction-dot': {
+                    fill: 'muted'
+                  },
+                  '.svg-bubble-action': {
+                    minHeight: 2
+                  }
+                }}
+              >
                 {reaction && (
                   <Button
                     onClick={() => handleSubmit(reaction)}
