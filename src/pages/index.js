@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
-import { format } from 'date-fns';
-import { useStaticQuery, graphql, Link } from 'gatsby';
-import { Heading, Divider, Card, Flex, Box, Text, Button } from 'theme-ui';
+import { Heading, Text, Box, Link, Divider } from '@theme-ui/components';
 
 import Seo from '../components/Seo';
 import { useConfig } from '../utils/useConfig';
@@ -13,32 +11,12 @@ const IndexPage = () => {
     }
   } = useConfig();
 
-  const posts = useStaticQuery(graphql`
-    query getAllPosts {
-      allMdx(sort: { order: DESC, fields: [frontmatter___date] }) {
-        edges {
-          node {
-            id
-            excerpt
-            frontmatter {
-              title
-              date
-            }
-            fields {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-
   return (
-    <>
+    <Fragment>
       <Seo
         type="website"
         title={name}
-        titleTemplate="Demo"
+        titleTemplate=""
         keywords={keywords}
         description={description}
         siteUrl={siteUrl}
@@ -46,72 +24,35 @@ const IndexPage = () => {
         lang={lang}
       />
       <Heading as="h1" variant="styles.h1">
-        Demo
+        Hiya!{' '}
+        <span role="img" aria-label="wave">
+          👋
+        </span>
       </Heading>
       <Divider />
-      <Flex sx={{ flexWrap: 'wrap', mx: (theme) => `-${theme.space[2]}px` }}>
-        {posts.allMdx.edges.map((item, index) => {
-          const {
-            frontmatter: { title, date },
-            fields: { slug },
-            excerpt
-          } = item.node;
-          return (
-            <Box
-              key={index}
-              sx={{
-                px: 2,
-                mb: 3,
-                a: {
-                  textDecoration: 'none',
-                  ':focus': {
-                    outlineColor: 'accent'
-                  }
-                }
-              }}
-            >
-              <Link to={slug}>
-                <Card
-                  sx={{
-                    ':hover': {
-                      button: {
-                        color: 'primary'
-                      }
-                    }
-                  }}
-                >
-                  <Heading as="h4" variant="styles.h4">
-                    {title}
-                  </Heading>
-                  <Text
-                    as="small"
-                    variant="styles.small"
-                    sx={{ color: 'highlight', mb: 2 }}
-                  >
-                    {format(new Date(date), 'd MMMM u')}
-                  </Text>
-
-                  <Text
-                    sx={{
-                      mb: 4
-                    }}
-                  >
-                    {excerpt}
-                  </Text>
-                  <Button
-                    variant="text"
-                    tabIndex={-1}
-                    sx={{ alignSelf: 'flex-end' }}
-                  >
-                    Read post
-                  </Button>
-                </Card>
-              </Link>
-            </Box>
-          );
-        })}
-      </Flex>
-    </>
+      <Heading as="h4" variant="styles.h4">
+        React Svg Bubble Slider demo blog
+      </Heading>
+      <Text>
+        This is a demo blog using{' '}
+        <Link href="https://dashboard.fauna.com/" target="_blank">
+          FaunaDB
+        </Link>{' '}
+        {''} for the data storage.
+        <Divider />
+        This demo blog also uses Netlify Continuous Deployment, Netlify
+        serverless functions and Apollo/GraphQL
+      </Text>
+      <Divider />
+      <Divider />
+      <Text>
+        If you're using React Svg Bubble Slider in your project please do let me
+        know{' '}
+        <Link href="https://twitter.com/PaulieScanlon" target="_blank">
+          @pauliescanlon
+        </Link>
+      </Text>
+    </Fragment>
   );
 };
 

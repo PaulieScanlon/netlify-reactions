@@ -2,14 +2,16 @@ export default {
   colors: {
     text: '#333333',
     background: '#ffffff',
-    primary: '#FF69B4',
-    muted: '#ffd5ea',
+    primary: '#FF5BA3',
+    secondary: '#1DE9B6',
+    muted: '#DEDEDE',
     highlight: '#00C4FF',
-    gray: '#E2E2E2',
+    gray: '#999999',
     accent: '#F2C40E',
-    darken: '#989898',
+    darken: '#F7F7F7',
     error: '#FF010E',
-    success: '#03B255'
+    success: '#03B255',
+    svgIcon: '#ffdceb'
   },
   fonts: {
     body: 'system-ui, sans-serif',
@@ -69,7 +71,10 @@ export default {
       fontSize: 0
     },
     a: {
-      color: 'secondary'
+      color: 'secondary',
+      ':focus': {
+        outlineColor: 'accent'
+      }
     },
     h1: {
       color: 'primary',
@@ -135,26 +140,91 @@ export default {
       marginBottom: 1
     },
     img: {},
-    pre: {},
-    ol: {},
-    ul: {},
-    li: {},
-    blockquote: {},
+    pre: {
+      borderColor: 'gray',
+      borderStyle: 1,
+      borderWidth: 0,
+      backgroundColor: 'darken',
+      color: 'text',
+      lineHeight: 'body',
+      overflow: 'auto',
+      padding: 3,
+      code: {
+        backgroundColor: 'darken',
+        color: 'text',
+        lineHeight: 'body'
+      }
+    },
+    ol: {
+      color: 'text'
+    },
+    ul: {
+      color: 'text'
+    },
+    li: {
+      color: 'text',
+      lineHeight: 'body'
+    },
+    blockquote: {
+      borderLeftColor: 'highlight',
+      borderLeftStyle: 0,
+      borderLeftWidth: 1,
+      padding: 2,
+      backgroundColor: 'darken',
+      p: {
+        margin: 0
+      }
+    },
     hr: {
-      color: 'gray',
-      my: 4
+      border: 0,
+      borderStyle: 0,
+      color: 'muted',
+      marginTop: 3,
+      marginBottom: 3
     },
     em: {},
-    table: {},
+    table: {
+      color: 'text',
+      border: 0,
+      borderStyle: 0,
+      borderColor: 'gray',
+      borderCollapse: 'collapse',
+      mb: 3
+    },
     tr: {},
-    th: {},
-    td: {},
+    th: {
+      backgroundColor: 'darken',
+      border: 0,
+      borderStyle: 0,
+      borderColor: 'gray',
+      padding: 2
+    },
+    td: {
+      border: 0,
+      borderStyle: 0,
+      borderColor: 'gray',
+      padding: 2
+    },
     strong: {},
     del: {},
     b: {},
     i: {},
-    progress: {},
-    donut: {},
+    progress: {
+      backgroundColor: 'darken',
+      color: 'primary',
+      secondary: {
+        backgroundColor: 'darken',
+        color: 'secondary'
+      }
+    },
+    donut: {
+      primary: {
+        color: 'primary'
+      },
+      secondary: {
+        color: 'secondary'
+      }
+    },
     spinner: {
       color: 'background',
       width: 23,
@@ -177,16 +247,23 @@ export default {
       cursor: 'pointer',
       display: 'inline-flex',
       textTransform: 'capitalize',
-      ':focus': {
-        outlineColor: 'highlight'
-      },
       '&:disabled': {
         color: 'darken',
         cursor: 'not-allowed',
         backgroundColor: 'muted'
       }
     },
-    secondary: {},
+    secondary: {
+      alignItems: 'center',
+      backgroundColor: 'secondary',
+      cursor: 'pointer',
+      display: 'inline-flex',
+      '&:disabled': {
+        color: 'darken',
+        cursor: 'not-allowed',
+        backgroundColor: 'muted'
+      }
+    },
     ghost: {
       alignItems: 'center',
       backgroundColor: 'background',
@@ -196,11 +273,8 @@ export default {
       px: 2,
       py: 2,
       transition: '.2s linear background-color',
-      ':focus': {
-        outlineColor: 'primary'
-      },
       ':hover': {
-        backgroundColor: 'gray'
+        backgroundColor: 'darken'
       }
     },
     text: {
@@ -211,9 +285,6 @@ export default {
       color: 'text',
       p: 0,
       transition: '.2s linear color',
-      ':focus': {
-        outlineColor: 'primary'
-      },
       ':hover': {
         color: 'primary'
       }
@@ -234,18 +305,29 @@ export default {
     nav: {
       borderRadius: 3,
       display: 'inline-flex',
+      color: 'text',
       px: 2,
       py: 1,
       transition: '.2s linear color',
-      '&[aria-current]': {
-        color: 'primary'
+      '.svg-icon': {
+        color: 'text',
+        transition: '.2s linear color'
       },
-      ':focus': {
-        outlineColor: 'accent'
+      '&[aria-current]': {
+        color: 'primary',
+        '.svg-icon': {
+          color: 'primary'
+        }
       },
       ':hover': {
         color: 'highlight',
-        backgroundColor: 'gray'
+        backgroundColor: 'darken',
+        '.svg-icon': {
+          color: 'highlight'
+        }
+      },
+      ':focus': {
+        outlineColor: 'accent'
       }
     }
   },
@@ -275,10 +357,34 @@ export default {
     }
   },
   forms: {
-    label: {},
-    input: {},
-    select: {},
-    textarea: {},
+    label: {
+      alignItems: 'center',
+      fontSize: 0,
+      marginBottom: 2
+    },
+    input: {
+      color: 'text',
+      borderColor: 'muted',
+      '::placeholder': {
+        fontSize: 0,
+        color: 'gray'
+      }
+    },
+    select: {
+      color: 'text'
+    },
+    textarea: {
+      color: 'text',
+      borderColor: 'muted',
+      '::placeholder': {
+        fontSize: 0,
+        color: 'gray'
+      }
+    },
+    slider: {
+      color: 'primary',
+      backgroundColor: 'darken'
+    },
     radio: {},
     checkbox: {}
   },

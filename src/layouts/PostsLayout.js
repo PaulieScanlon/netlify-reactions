@@ -193,7 +193,6 @@ const PostsLayout = ({
         <MDXRenderer>{body}</MDXRenderer>
       </MDXProvider>
       <Divider />
-      <Box sx={{ height: 110 }} />
       <Flex
         sx={{
           alignItems: 'center',
@@ -211,7 +210,10 @@ const PostsLayout = ({
               textTransform: 'capitalize'
             },
             '.svg-bubble-action': {
-              minHeight: 44
+              alignItems: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              minHeight: 52
             }
           }}
         >
@@ -239,16 +241,16 @@ const PostsLayout = ({
               </Flex>
             )}
           </SvgBubbleSlider>
-          <Divider />
         </Box>
       </Flex>
+      <Divider />
       <Flex
         sx={{
           alignItems: 'center',
           justifyContent: 'space-around',
           textAlign: 'center',
           m: 'auto',
-          maxWidth: 280
+          maxWidth: 320
         }}
       >
         {loading && <Spinner />}
@@ -263,8 +265,9 @@ const PostsLayout = ({
                   sx={{
                     flexDirection: 'column',
                     justifyContent: 'center',
+
                     '.svg-icon': {
-                      color: 'muted'
+                      color: 'svgIcon'
                     },
                     mx: 2
                   }}
@@ -273,7 +276,11 @@ const PostsLayout = ({
                   <Text
                     as="small"
                     variant="small"
-                    sx={{ color: 'darken', mt: 2, textAlign: 'center' }}
+                    sx={{
+                      color: 'gray',
+                      mt: 2,
+                      textAlign: 'center'
+                    }}
                   >
                     {count}
                   </Text>
@@ -289,7 +296,6 @@ const PostsLayout = ({
         )}
       </Flex>
       <Box sx={{ height: 20 }} />
-
       <Flex
         sx={{
           justifyContent: 'space-between',
