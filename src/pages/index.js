@@ -35,7 +35,7 @@ const IndexPage = () => {
       </Heading>
       <Text>
         This is a demo blog using{' '}
-        <Link href="https://dashboard.fauna.com/" target="_blank">
+        <Link href="https://fauna.com/" target="_blank">
           FaunaDB
         </Link>{' '}
         {''} for the data storage.
