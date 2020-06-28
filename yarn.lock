@@ -10684,10 +10684,10 @@ react-side-effect@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.0.tgz#1ce4a8b4445168c487ed24dab886421f74d380d3"
   integrity sha512-IgmcegOSi5SNX+2Snh1vqmF0Vg/CbkycU9XZbOHJlZ6kMzTmi3yc254oB1WCkgA7OQtIAoLmcSFuHTc/tlcqXg==
 
-react-svg-bubble-slider@^0.0.37:
-  version "0.0.37"
-  resolved "https://registry.yarnpkg.com/react-svg-bubble-slider/-/react-svg-bubble-slider-0.0.37.tgz#e3c2ed5d5afefac9411250e5682f6bc0d7209cdc"
-  integrity sha512-OBbBH16iRqFVk6Ef7IBg01EvwghPm1/ahrXXhpyzw4+Js1glhWqfDllIEEFG0pXXeneTFyy9AeDVVhEgdFnjfA==
+react-svg-bubble-slider@^0.0.38:
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/react-svg-bubble-slider/-/react-svg-bubble-slider-0.0.38.tgz#dbf8737a15c060e9265dc0f69505219b6e3b2d9e"
+  integrity sha512-ZWrwMY5/UZKFHLKW9EX6o+7xRBzSTE35GCXP8wFd3r3aBjFDNYgBYmof/tgre2B9F4dYLrW+/1j7WjdvrqQuSA==
   dependencies:
     gsap "^3.3.3"
 
