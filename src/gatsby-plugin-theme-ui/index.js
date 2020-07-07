@@ -247,6 +247,9 @@ export default {
       cursor: 'pointer',
       display: 'inline-flex',
       textTransform: 'capitalize',
+      ':focus': {
+        outlineColor: 'accent'
+      },
       '&:disabled': {
         color: 'darken',
         cursor: 'not-allowed',
@@ -273,6 +276,9 @@ export default {
       px: 2,
       py: 2,
       transition: '.2s linear background-color',
+      ':focus': {
+        outlineColor: 'accent'
+      },
       ':hover': {
         backgroundColor: 'darken'
       }

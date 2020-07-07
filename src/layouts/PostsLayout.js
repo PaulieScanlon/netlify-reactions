@@ -20,6 +20,8 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
 import Seo from '../components/Seo';
+import IconCount from '../components/IconCount';
+
 import { useConfig } from '../utils/useConfig';
 
 const GET_REACTIONS_BY_SLUG = gql`
@@ -153,13 +155,6 @@ const PostsLayout = ({
     }
   }, [data]);
 
-  // console.log('slug: ', slug);
-  // console.log('loading: ', loading);
-  // console.log('data: ', data);
-  // console.log('reactions: ', reactions);
-  // console.log('ref: ', ref);
-  // console.log('error: ', JSON.stringify(error, null, 2));
-
   return (
     <Box
       sx={{
@@ -204,6 +199,14 @@ const PostsLayout = ({
       >
         <Box
           sx={{
+            '.svg-timeline': {
+              ':focus': {
+                outlineColor: 'accent',
+                outlineWidth: '1px',
+                outlineStyle: 'solid',
+                boxShadow: 'none'
+              }
+            },
             '.speech-bubble-stroke': {
               stroke: 'primary'
             },
@@ -229,39 +232,13 @@ const PostsLayout = ({
               display: 'flex',
               justifyContent: 'center',
               minHeight: 52
-            }
+            },
+            width: '100%'
           }}
         >
           <SvgBubbleSlider icons={ICONS_TO_USE}>
             {({ reaction }) => (
-              <Flex
-                sx={{
-                  justifyContent: 'center',
-                  '.speech-bubble-stroke': {
-                    stroke: 'muted'
-                  },
-                  '.speech-bubble-fill': {
-                    fill: 'background'
-                  },
-                  '.speech-bubble-text': {
-                    fill: 'muted',
-                    fontSize: '24px',
-                    textTransform: 'capitalize'
-                  },
-                  '.speech-bubble-pop-line': {
-                    stroke: 'muted'
-                  },
-                  '.reaction-icon': {
-                    fill: 'background'
-                  },
-                  '.reaction-dot': {
-                    fill: 'muted'
-                  },
-                  '.svg-bubble-action': {
-                    minHeight: 2
-                  }
-                }}
-              >
+              <Flex>
                 {reaction && (
                   <Button
                     onClick={() => handleSubmit(reaction)}
@@ -292,41 +269,31 @@ const PostsLayout = ({
           justifyContent: 'space-around',
           textAlign: 'center',
           m: 'auto',
-          maxWidth: 320
+          maxWidth: [320, '100%', '80%']
         }}
       >
         {loading && <Spinner />}
         {error && <Text>{`${error}`}</Text>}
         {!loading && !error && reactions && (
-          <Fragment>
+          <Flex
+            sx={{
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              flexGrow: 1
+            }}
+          >
             {reactions.map((icon, index) => {
               const { name, count } = icon;
               return (
-                <Flex
+                <Box
                   key={index}
                   sx={{
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-
-                    '.svg-icon': {
-                      color: 'svgIcon'
-                    },
-                    mx: 2
+                    width: ['30%', '12%'],
+                    mb: 2
                   }}
                 >
-                  <SvgIcon name={name} />
-                  <Text
-                    as="small"
-                    variant="small"
-                    sx={{
-                      color: 'gray',
-                      mt: 2,
-                      textAlign: 'center'
-                    }}
-                  >
-                    {count}
-                  </Text>
-                </Flex>
+                  <IconCount name={name} count={count} />
+                </Box>
               );
             })}
             {reactions.length <= 0 && (
@@ -334,7 +301,7 @@ const PostsLayout = ({
                 Be the first to react 👆
               </Heading>
             )}
-          </Fragment>
+          </Flex>
         )}
       </Flex>
       <Box sx={{ height: 20 }} />
@@ -351,10 +318,7 @@ const PostsLayout = ({
                 as={GatsbyLink}
                 to={prev.fields.slug}
                 sx={{
-                  textDecoration: 'none',
-                  ':focus': {
-                    outlineColor: 'primary'
-                  }
+                  textDecoration: 'none'
                 }}
               >
                 <Button tabIndex={-1} variant="ghost">
@@ -371,10 +335,7 @@ const PostsLayout = ({
                 as={GatsbyLink}
                 to={next.fields.slug}
                 sx={{
-                  textDecoration: 'none',
-                  ':focus': {
-                    outlineColor: 'primary'
-                  }
+                  textDecoration: 'none'
                 }}
               >
                 <Button tabIndex={-1} variant="ghost">
