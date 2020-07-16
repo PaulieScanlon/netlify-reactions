@@ -1,5 +1,14 @@
 import React, { Fragment } from 'react';
-import { Heading, Text, Box, Link, Divider } from '@theme-ui/components';
+import {
+  Heading,
+  Text,
+  Box,
+  Link,
+  Divider,
+  Button,
+  Flex
+} from '@theme-ui/components';
+import { Link as GatsbyLink } from 'gatsby';
 
 import Seo from '../components/Seo';
 import { useConfig } from '../utils/useConfig';
@@ -33,18 +42,42 @@ const IndexPage = () => {
       <Heading as="h4" variant="styles.h4">
         React Svg Bubble Slider demo blog
       </Heading>
+
+      <Text>
+        To leave a reaction head over to the{' '}
+        <Link as={GatsbyLink} to="/posts">
+          Posts
+        </Link>{' '}
+        page to see reactions in action!
+      </Text>
+      <Divider />
+      <Flex
+        sx={{
+          alignItems: 'center'
+        }}
+      >
+        <Text
+          sx={{
+            fontSize: 3,
+            mr: 2
+          }}
+        >
+          👉
+        </Text>
+        <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none' }}>
+          <Button as="span">Posts</Button>
+        </Link>
+      </Flex>
+
+      <Divider />
       <Text>
         This is a demo blog using{' '}
         <Link href="https://fauna.com/" target="_blank">
           FaunaDB
         </Link>{' '}
-        {''} for the data storage.
-        <Divider />
-        This demo blog also uses Netlify Continuous Deployment, Netlify
-        serverless functions and Apollo/GraphQL
+        {''} for the data storage. This demo blog also uses Netlify Continuous
+        Deployment, Netlify serverless functions and Apollo/GraphQL
       </Text>
-      <Divider />
-      <Divider />
       <Text>
         If you're using React Svg Bubble Slider in your project please do let me
         know{' '}
