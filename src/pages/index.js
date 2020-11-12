@@ -33,7 +33,7 @@ const IndexPage = () => {
         lang={lang}
       />
       <Heading as="h1" variant="styles.h1">
-        Hiya!{' '}
+        Carlos!{' '}
         <span role="img" aria-label="wave">
           👋
         </span>
@@ -62,13 +62,8 @@ const IndexPage = () => {
             mr: 2
           }}
         >
-          👉
         </Text>
-        <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none' }}>
-          <Button as="span">Posts</Button>
-        </Link>
       </Flex>
-
       <Divider />
       <Text>
         This is a demo blog using{' '}
@@ -81,8 +76,11 @@ const IndexPage = () => {
       <Text>
         If you're using React Svg Bubble Slider in your project please do let me
         know{' '}
-        <Link href="https://twitter.com/PaulieScanlon" target="_blank">
-          @pauliescanlon
+        <Link href="https://twitter.com/ClsVitor" target="_blank">
+          @ClsVitor
+        </Link>
+         <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none' }}>
+          <Button as="span">Posts</Button>
         </Link>
       </Text>
     </Fragment>
