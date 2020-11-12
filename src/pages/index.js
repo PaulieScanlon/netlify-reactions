@@ -50,21 +50,6 @@ const IndexPage = () => {
         </Link>{' '}
         page to see reactions in action!
       </Text>
-      <Divider />
-      <Flex
-        sx={{
-          alignItems: 'center'
-        }}
-      >
-        <Text
-          sx={{
-            fontSize: 3,
-            mr: 2
-          }}
-        >
-        </Text>
-      </Flex>
-      <Divider />
       <Text>
         This is a demo blog using{' '}
         <Link href="https://fauna.com/" target="_blank">
@@ -79,9 +64,24 @@ const IndexPage = () => {
         <Link href="https://twitter.com/ClsVitor" target="_blank">
           @ClsVitor
         </Link>
+     <Divider />
+      <Flex
+        sx={{
+          alignItems: 'center'
+        }}
+      >
+        <Text
+          sx={{
+            fontSize: 3,
+            mr: 2
+          }}
+        >
          <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none' }}>
           <Button as="span">Posts</Button>
         </Link>
+        </Text>
+      </Flex>
+      <Divider />
       </Text>
     </Fragment>
   );
