@@ -251,7 +251,7 @@ export default {
         outlineColor: 'accent'
       },
       '&:disabled': {
-        color: 'darken',
+        color: '#77dd77',
         cursor: 'not-allowed',
         backgroundColor: 'muted'
       }
