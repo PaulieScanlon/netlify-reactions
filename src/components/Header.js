@@ -37,9 +37,7 @@ const Header = () => (
         >
           <NavLink as={GatsbyLink} to="/">
             <SvgIcon name="tongue" />
-          </NavLink>
-          <NavLink as={GatsbyLink} to="/posts">
-            Posts
+             Chatting
           </NavLink>
         </Flex>
       </Container>
