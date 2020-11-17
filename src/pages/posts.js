@@ -37,13 +37,13 @@ const PostsPage = () => {
     <>
       <Seo
         type="website"
-        title={name}
-        titleTemplate="Demo"
+        title="Carlos"
+        titleTemplate="Blog"
         keywords={keywords}
         description={description}
         siteUrl={siteUrl}
         siteImage={siteImage}
-        lang={lang}
+        lang="en"
       />
       <Heading as="h1" variant="styles.h1">
         Posts{' '}
