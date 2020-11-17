@@ -24,8 +24,8 @@ const IndexPage = () => {
     <Fragment>
       <Seo
         type="website"
-        title={name}
-        titleTemplate=""
+        title="Carlos"
+        titleTemplate="About Me"
         keywords={keywords}
         description={description}
         siteUrl={siteUrl}
