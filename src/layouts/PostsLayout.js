@@ -197,7 +197,6 @@ const PostsLayout = ({
           m: 'auto'
         }}
       >
-        () => (
   <Box
     sx={{
       '.react-svg-bubble-slider': {
@@ -228,7 +227,6 @@ const PostsLayout = ({
   >
     <SvgBubbleSlider iconSet="twemoji" />
   </Box>
-)
       </Flex>
       <Divider />
       <Flex
