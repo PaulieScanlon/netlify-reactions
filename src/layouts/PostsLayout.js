@@ -197,71 +197,70 @@ const PostsLayout = ({
           m: 'auto'
         }}
       >
-  <Box 
-    sx={{ 
-    '.svg-timeline': { 
-    ':focus': { 
-      outlineColor: 'accent',
-      outlineWidth: '1px', 
-      outlineStyle: 'solid',
-      boxShadow: 'none' 
-    } },
-     '.speech-bubble-stroke': { 
-        stroke: 'primary' 
-      }, 
-       '.speech-bubble-fill': {
-          fill: 'background' 
-     },
-       '.speech-bubble-text': { 
-         fill: 'primary',
-         fontSize: 3,
-         textTransform: 'capitalize'
-    },
-      '.speech-bubble-pop-line': { 
-         stroke: 'primary' 
-   }, 
-      '.reaction-icon': { 
-         fill: 'background' 
-   }, 
-     '.reaction-dot': { 
-      fill: 'primary'
-   },
-    '.svg-bubble-action': { 
-      alignItems: 'center', 
-      display: 'flex', 
-      justifyContent: 'center', 
-      minHeight: 52
-  }, 
-    width: '100%' 
-  }} > 
-  <SvgBubbleSlider icons={ICONS_TO_USE}> {({ reaction }) => ( 
-  <Flex> 
- {reaction && ( 
- <Button
-   onClick={() => handleSubmit(reaction)
-  } 
-  disabled={isLocalLoading} 
-    sx={{ 
-     minHeight: 40, 
-     minWidth: 100, 
-     textAlign: 'center',
-     justifyContent: 'center'
-  }} > 
-  {isLocalLoading ? ( 
-  <Spinner
-   sx={{ 
-    color: 'white',
-    width: 20,
-    height: 20 
-  }} /> 
-   ) : ( reaction )
-  } 
-   </Button>
-  )} 
-  </Flex> 
-  )} 
-  </SvgBubbleSlider> 
-  </Box>
+  <Box
+          sx={{
+            '.svg-timeline': {
+              ':focus': {
+                outlineColor: 'accent',
+                outlineWidth: '1px',
+                outlineStyle: 'solid',
+                boxShadow: 'none'
+              }
+            },
+            '.speech-bubble-stroke': {
+              stroke: 'primary'
+            },
+            '.speech-bubble-fill': {
+              fill: 'background'
+            },
+            '.speech-bubble-text': {
+              fill: 'primary',
+              fontSize: 3,
+              textTransform: 'capitalize'
+            },
+            '.speech-bubble-pop-line': {
+              stroke: 'primary'
+            },
+            '.reaction-icon': {
+              fill: 'background'
+            },
+            '.reaction-dot': {
+              fill: 'primary'
+            },
+            '.svg-bubble-action': {
+              alignItems: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              minHeight: 52
+            },
+            width: '100%'
+          }}
+        >
+          <SvgBubbleSlider icons={ICONS_TO_USE}>
+            {({ reaction }) => (
+              <Flex>
+                {reaction && (
+                  <Button
+                    onClick={() => handleSubmit(reaction)}
+                    disabled={isLocalLoading}
+                    sx={{
+                      minHeight: 40,
+                      minWidth: 100,
+                      textAlign: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {isLocalLoading ? (
+                      <Spinner sx={{ color: 'white', width: 20, height: 20 }} />
+                    ) : (
+                      reaction
+                    )}
+                  </Button>
+                )}
+              </Flex>
+            )}
+          </SvgBubbleSlider>
+        </Box>
       </Flex>
       <Divider />
       <Flex
