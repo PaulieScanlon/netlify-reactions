@@ -46,7 +46,7 @@ const PostsPage = () => {
         lang="en"
       />
       <Heading as="h1" variant="styles.h1">
-        Posts{' '}
+        Writings{' '}
         <span role="img" aria-label="posts">
           ✍️
         </span>
