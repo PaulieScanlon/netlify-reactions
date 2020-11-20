@@ -76,7 +76,7 @@ const IndexPage = () => {
             mr: 2
           }}
         >
-         <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none' }}>
+         <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none', align: 'center'}}>
           <Button as="span"> Blog </Button>
         </Link>
         </Text>
