@@ -78,7 +78,6 @@ const IndexPage = () => {
          <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none' }}>
           <Button as="span">Blog</Button>
         </Link>
-        </Text>
       </Flex>
       <Divider />
       </Text>
