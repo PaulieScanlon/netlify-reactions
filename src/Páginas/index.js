@@ -42,7 +42,6 @@ const IndexPage = () => {
       <Heading as="h4" variant="styles.h4">
         React Svg Bubble Slider demo blog
       </Heading>
-
       <Text>
         To leave a reaction head over to the{' '}
         <Link as={GatsbyLink} to="/posts">
@@ -76,7 +75,7 @@ const IndexPage = () => {
             mr: 2
           }}
         >
-         <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none', alignItems:'center'}}>
+         <Link as={GatsbyLink} to="/posts" sx={{ textDecoration: 'none'}}>
           <Button as="span"> Blog </Button>
         </Link>
         </Text>
